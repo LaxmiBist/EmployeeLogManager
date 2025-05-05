@@ -1,0 +1,54 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow:none;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
+
+
+
+    .sidebar-collapsed .list-group-flush span {
+        display: none;
+    }
+
+    .sidebar-collapsed .list-group-flush p {
+        display: none;
+    }
+
+
+#sidebar.sidebar-collapsed {
+    width: 80px !important;
+}
+
+/* Also adjust main content when sidebar is collapsed */
+.main-content-expanded {
+    width: calc(100% - 80px) !important;
+}
+
+/* Hide EMS title when sidebar is collapsed */
+.sidebar-collapsed .static-header h5 {
+    display: none;
+}
+
+/* Remove ps-3 padding from <a> links */
+.sidebar-collapsed #sidebar-link a {
+    padding-left: 10px !important;
+}
+
+
+
+

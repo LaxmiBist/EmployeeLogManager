@@ -1,0 +1,30 @@
+﻿@model EmployeeLogManager.Model.ViewModel.RoleViewModel
+
+
+@{
+    ViewData["Title"] = "Create Role";
+}
+
+<div class="container mt-4">
+    <div class="shadow p-5 bg-white" style="width: 100%; margin:auto;">
+        <h4 class="mb-4 text-center">Create Role</h4>
+
+        <form asp-action="Create" method="post">
+              <div asp-validation-summary="All" class="text-danger"></div> 
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="d-flex justify-content-end align-content-end">
+                <button type="submit" class="btn mt-3 px-4" style="background:#229f94; color:white;">Create Role</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

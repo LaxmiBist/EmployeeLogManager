@@ -1,0 +1,54 @@
+﻿@model EmployeeLogManager.Model.ViewModel.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet">
+    <title>Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/auth.css">
+</head>
+
+<body>
+    <div class="signup-container">
+        <div class="form-container">
+            <h2 class="form-title">Login</h2>
+            <form asp-action="Login" asp-controller="Auth" autocomplete="off" class="d-flex flex-column gap-3">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="d-flex flex-column gap-2">
+                <div>
+                    <input asp-for="Email" class="form-control" placeholder="Email" />
+                </div>
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <div>
+                    <input asp-for="Password" class="form-control" placeholder="Password" />
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div>
+                    <button type="submit" value="Create" class="btn btn-block auth-btn">Login</button>
+                </div>
+            </form>
+
+            <a asp-controller="Auth" asp-action="ForgotPassword" class="text-decoration-none forget-pass">
+                Forgot password?
+            </a>
+ 
+        </div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

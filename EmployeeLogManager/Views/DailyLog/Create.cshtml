@@ -1,0 +1,80 @@
+﻿@model EmployeeLogManager.Model.ViewModel.DailyLogViewModel
+
+
+@if (ViewBag.SuccessMsg != null)
+{
+    <div class="alert alert-success">@ViewBag.SuccessMsg</div>
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@* Form to add daily  *@
+    <a asp-controller="DailyLog" asp-action="Index" class="text-decoration-none mb-4"><i class="fa-solid fa-arrow-left-long"></i></a>
+<div class="d-flex justify-content-center align-items-center vh-80">
+    <div class="container p-4 bg-white rounded shadow-sm" style="max-width:100%">
+        <h4 class="mb-4 text-center">Daily Log</h4>
+        <form asp-action="Create" method="post">
+            <div class="d-flex gap-4">
+                <div class="mb-3 col-3">
+                    <label for="logDate" class="form-label">Date</label>
+                    <input type="date" asp-for="Date" class="form-control" id="logDate" value="<?= date('Y-m-d') ?>">
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="logProject" class="form-label">Department</label>
+                    <input type="text" asp-for="Department" class="form-control">
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="logProject" class="form-label">Project Name</label>
+                    <input type="text" asp-for="ProjectName" class="form-control">
+                </div>
+            </div>
+            <table id="LogTable" class="table">
+                <thead>
+                    <tr>
+                        <th class="fw-normal">Task</th>
+                        <th class="fw-normal">Notes</th>
+                        <th class="fw-normal">Status</th>
+                        <th class="text-end">
+                            <button type="button" class="btn" style="background:#229f94; color:white;" onclick="addRow()">
+                                <i class="fa-solid fa-plus" style="font-size:12px; padding-left:4px;"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody id="itemRows">
+                    <!-- Initial row -->
+                </tbody>
+
+            </table>
+            <div class="d-flex justify-content-end align-content-end">
+                <button type="submit" class="btn btn-primary w-100 border-0 d-block w-auto px-4" style="background:#229f94; color:white;">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    <script>
+        let index = 0;
+
+        function addRow() {
+            let table = document.getElementById("itemRows");
+            let row = document.createElement("tr");
+            row.innerHTML = `
+                                <td><input name="Tasks[${index}].Task" class="form-control" /></td>
+                                <td><input name="Tasks[${index}].Notes" class="form-control" /></td>
+                                <td><input name="Tasks[${index}].Status" class="form-control" /></td>
+                                <td onclick="this.closest('tr').remove()"><i class="fas fa-trash mt-2" style="font-size:14px; color:crimson;"></i></td>
+                            `;
+            table.appendChild(row);
+            index++;
+        }
+    </script>
+}

@@ -1,0 +1,90 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+/* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+/* Container */
+.signup-container {
+    display: flex;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 400px;
+}
+
+/* Form Section */
+.form-container {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-title {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    font-weight: 600;
+    text-align: center;
+    color: #1a677b;
+}
+
+.sign-in a {
+    font-size: 0.7rem;
+    text-decoration: none;
+    color: darkslategray;
+}
+
+
+.auth-btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    background: #1a677b;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 500;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+    .auth-btn:hover {
+        background-color: #1A677B;
+        color: white;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+
+.input::placeholder {
+    font-size: 1px;
+    color: darkred;
+}
+
+
+.validation-txt {
+    color: red;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.forget-pass{
+    color: #1A677B !important;
+    font-size: 14px !important;
+    margin-top: 1rem !important;
+}
+
+  

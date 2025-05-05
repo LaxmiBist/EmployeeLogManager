@@ -1,0 +1,68 @@
+﻿@model List<EmployeeLogManager.Model.ViewModel.DailyLogViewModel>
+
+@{
+    ViewData["Title"] = "Daily List Page";
+    var count = 1;
+}
+
+<main>
+    <div class="container d-flex flex-column gap-4">
+        <div class="d-flex justify-content-end">
+            <a asp-controller="DailyLog" asp-action="Create" class="btn border-0 px-4" style="background:#229f94; color:white;">Create</a>
+        </div>
+
+
+        @*    @if (TempData["SuccessMsg"] != null)
+        {
+        <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+        <div class="toast-body">
+        @TempData["SuccessMsg"]
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        </div>
+        } *@
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+
+                    <th class="fw-normal">#</th>
+                    <th class="fw-normal">Date</th>
+                    <th class="fw-normal">Department</th>
+                    <th class="fw-normal">Project</th>
+                    <th style="text-align:center;" class="fw-normal">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var dailylog in Model)
+                    {
+                        <tr>
+                            <td>@count</td>
+                            <td>@dailylog.Date.ToString("yyyy-MM-dd")</td>
+                            <td>@dailylog.Department</td>
+                            <td>@dailylog.ProjectName</td>
+                            <td class="d-flex gap-2 justify-content-center align-content-center">
+                                <a asp-controller="DailyLog" asp-action="Details" asp-route-id="@dailylog.Id" title="Edit" style="font-size: 14px; color:#069156;">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        count++;
+                    }}
+
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center">No Roles Found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</main>
+
+

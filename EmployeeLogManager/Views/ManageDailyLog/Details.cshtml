@@ -1,0 +1,78 @@
+﻿@model EmployeeLogManager.Model.ViewModel.ManageDailyLogViewModel
+@{
+    ViewData["Title"] = "Daily Log Details";
+}
+
+<div class="container">
+    <a asp-controller="ManageDailyLog" asp-action="Index" style="color:#229f94;margin-bottom:4px; ">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <!-- Header Section -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <p><strong>Date:</strong> @Model.Date.ToShortDateString()</p>
+                    <p><strong>Email:</strong> @Model.Email</p>
+                    <p><strong>User:</strong> @Model.UserName</p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Department:</strong> @Model.Department</p>
+                    <p><strong>Project:</strong> @Model.Project</p>
+                    <p>
+                        <strong>Status:</strong>
+                    <p>@Model.Status</p>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tasks Table -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Tasks</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="fw-normal">#</th>
+                        <th class="fw-normal">Task</th>
+                        <th class="fw-normal">Notes</th>
+                        <th class="fw-normal">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Tasks != null && Model.Tasks.Any())
+                    {
+                        var count = 1;
+                        @foreach (var task in Model.Tasks)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td>@task.Task</td>
+                                <td>@task.Notes</td>
+                                <td>
+                                    <span class="badge @(task.Status == "Completed" ? "bg-success" : "bg-warning")">
+                                        @task.Status
+                                    </span>
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center">No Tasks Found</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

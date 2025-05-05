@@ -1,0 +1,63 @@
+﻿@model List<EmployeeLogManager.Model.ViewModel.ManageDailyLogViewModel>
+@{
+    ViewBag.Title = "Admin - Manage Daily Logs";
+}
+
+<div class="container mt-4">
+    <h3 class="text-center mb-4">Admin - Manage Daily Logs</h3>
+
+    <!-- Daily Log Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped shadow-sm bg-white">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Email</th>
+                    <th>User</th>
+                    <th>Department</th>
+                    <th>Project</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        int i = 1;
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.Date.ToShortDateString()</td>
+                            <td>@item.Email</td>
+                            <td>@item.UserName</td>
+                            <td>@item.Department</td>
+                            <td>@item.Project</td>
+                          
+                            <td>
+                                <a style="font-size: 14px; color:#069156;"
+                                   asp-controller="ManageDailyLog"
+                                   asp-action="Details"
+                                   asp-route-id="@item.Id"
+                                   title="Details">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a class="ms-2" style="font-size: 14px; color:#ee7924;" title="Send Reminder">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center">No Daily Logs Found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
