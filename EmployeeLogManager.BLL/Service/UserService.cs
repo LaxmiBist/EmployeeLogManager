@@ -2,10 +2,6 @@
 using EmployeeLogManager.Model.Entities;
 using EmployeeLogManager.Model.ViewModel;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EmployeeLogManager.BLL.Services
 {
@@ -29,7 +25,8 @@ namespace EmployeeLogManager.BLL.Services
                 PhoneNumber = u.PhoneNumber,
                 Address = u.Address,
                 Department = u.Department,
-                Position = u.Position
+                Position = u.Position,
+                RoleId = u.RoleId
             }).ToList();
         }
 
@@ -52,29 +49,40 @@ namespace EmployeeLogManager.BLL.Services
             };
         }
 
+      
+
         public async Task<(bool Success, string Message)> CreateUserAsync(UserViewModel model)
         {
-            try
-            {
-                var user = new User
-                {
-                    FullName = model.FullName,
-                    Email = model.Email,
-                    Password = model.Password,
-                    PhoneNumber = model.PhoneNumber,
-                    Address = model.Address,
-                    Department = model.Department,
-                    Position = model.Position,
-                    RoleId = model.RoleId
-                };
+                try
+                {        
+                var existingUser = await _repo.GetUserByEmailAsync(model.Email);
+                    if (existingUser != null)
+                    {
+                        return (false, "A user with the same email already exists.");
+                    }
 
-                bool success = await _repo.CreateUserAsync(user);
-                return (success, success ? "User created successfully!" : "Failed to create user.");
-            }
-            catch (DbUpdateException ex)
-            {
-                return (false, ex.InnerException?.Message.Contains("UNIQUE") ?? false 
-                    ? "Email already exists." 
+                    var user = new User
+                    {
+                        FullName = model.FullName,
+                        Email = model.Email,
+                        PhoneNumber = model.PhoneNumber,
+                        Address = model.Address,
+                        Department = model.Department,
+                        Position = model.Position,
+                        RoleId = model.RoleId,
+                        Password = "password"
+                    };
+
+                    bool success = await _repo.CreateUserAsync(user);
+                    return (success, success ? "User created successfully!" : "Failed to create user.");
+                }
+                catch (DbUpdateException ex)
+                {
+                // Check if the inner exception message contains "UNIQUE" (duplicate entry)
+                return (false, ex.InnerException?.Message.Contains("UNIQUE") ?? false
+                    // If unique violation, return email exists message
+                    ? "Email already exists."
+                    // Otherwise, return error
                     : "An error occurred while saving.");
             }
         }
@@ -86,7 +94,6 @@ namespace EmployeeLogManager.BLL.Services
 
             user.FullName = model.FullName;
             user.Email = model.Email;
-            user.Password = model.Password;
             user.PhoneNumber = model.PhoneNumber;
             user.Address = model.Address;
             user.Department = model.Department;

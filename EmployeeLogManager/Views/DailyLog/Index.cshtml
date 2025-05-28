@@ -27,7 +27,6 @@
             <thead class="table-dark">
                 <tr>
 
-                    <th class="fw-normal">#</th>
                     <th class="fw-normal">Date</th>
                     <th class="fw-normal">Department</th>
                     <th class="fw-normal">Project</th>
@@ -40,7 +39,6 @@
                     @foreach (var dailylog in Model)
                     {
                         <tr>
-                            <td>@count</td>
                             <td>@dailylog.Date.ToString("yyyy-MM-dd")</td>
                             <td>@dailylog.Department</td>
                             <td>@dailylog.ProjectName</td>
@@ -50,7 +48,6 @@
                                 </a>
                             </td>
                         </tr>
-                        count++;
                     }}
 
                 else

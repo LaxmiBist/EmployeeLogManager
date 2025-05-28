@@ -2,6 +2,30 @@
 
 <div class="container mt-4">
     <a asp-controller="User" asp-action="Index" class="text-decoration-none"><i class="fa-solid fa-arrow-left-long"></i></a>
+    @if (ViewBag.ErrorMsg != null)
+    {
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+            <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">@ViewBag.ErrorMsg</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    }
+
+     @if (ViewBag.SuccessMsg != null)
+     {
+         <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+             <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                 <div class="d-flex">
+                     <div class="toast-body">@ViewBag.SuccessMsg</div>
+                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                 </div>
+             </div>
+         </div>
+     }
+
     <div class="shadow p-5" style="width: 46%; margin:auto;">
         <h4>Create User</h4>
 
@@ -11,7 +35,7 @@
             @* <div asp-validation-summary="All" class="text-danger"></div> *@
 
             <div class="mb-3">
-                <label asp-for="FullName" class="form-label"></label>
+                <label asp-for="FullName" class="form-label">Full Name</label>
                 <input asp-for="FullName" class="form-control" />
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
@@ -23,14 +47,8 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" type="password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="PhoneNumber" class="form-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
+                <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                <input asp-for="PhoneNumber" class="form-control" id="phoneNumber" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
 
@@ -52,10 +70,10 @@
                 <span asp-validation-for="Position" class="text-danger"></span>
             </div>
               <div class="mb-3">
-                  <label asp-for="RoleId" class="form-label">Role</label>
+                <label asp-for="RoleId" class="form-label">Role</label>
                 <select asp-for="RoleId" class="form-control" asp-items="@(new SelectList(ViewBag.userRoles, "Id", "Name"))">
                       <option value="">-- Select Role --</option>
-                  </select>
+                </select>
                   <span asp-validation-for="RoleId" class="text-danger"></span>
               </div>
 
@@ -68,4 +86,21 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        $(document).ready(function () {
+            $('#phoneNumber').on('input', function () {
+                // Remove any non-digit characters
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+            toastElList.map(function (toastEl) {
+                return new bootstrap.Toast(toastEl).show();
+            });
+        });
+    </script>
 }
+

@@ -15,18 +15,14 @@ namespace EmployeeLogManager.Model.ViewModel
         [EmailAddress(ErrorMessage = "Invalid email address format.")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password is required.")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters.")]
-        public string Password { get; set; }
-
         [Required(ErrorMessage = "Address is required.")]
         [StringLength(200, ErrorMessage = "Address can't exceed 200 characters.")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Phone number is required.")]
-        [Phone(ErrorMessage = "Invalid phone number.")]
-        [StringLength(15, MinimumLength = 10, ErrorMessage = "Phone number should be between 10 and 15 digits.")]
+    [RegularExpression(@"^\d{10,15}$", ErrorMessage = "Phone number must contain only digits (10 to 15 digits).")]
         public string PhoneNumber { get; set; }
+
 
         [Required(ErrorMessage = "Department is required.")]
         [StringLength(50, ErrorMessage = "Department can't exceed 50 characters.")]

@@ -12,7 +12,6 @@
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
-                <th>#</th>
                 <th>Role</th>
                 <th style="text-align:center;">Action</th>
             </tr>
@@ -20,11 +19,9 @@
         <tbody>
             @if (Model != null && Model.Any())
             {
-                int i = 1;
                 foreach (var role in Model)
                 {
                     <tr>
-                        <td>@i</td>
                         <td>@role.Name</td>
                         <td class="d-flex gap-2 justify-content-center align-content-center">
                             <a asp-controller="Role" asp-action="Edit" asp-route-id="@role.Id" title="Edit">
@@ -37,7 +34,6 @@
                             </form>
                         </td>
                     </tr>
-                    i++;
                 }
             }
             else

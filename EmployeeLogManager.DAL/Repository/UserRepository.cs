@@ -20,6 +20,11 @@ namespace EmployeeLogManager.DAL.Repositories
                 .ToListAsync();
         }
 
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users
+                                 .FirstOrDefaultAsync(u => u.Email == email);
+        }
         public async Task<List<Role>> GetRolesAsync()
         {
             return await _context.Roles.ToListAsync();
@@ -30,11 +35,15 @@ namespace EmployeeLogManager.DAL.Repositories
             return await _context.Users.FindAsync(id);
         }
 
+
+
         public async Task<bool> CreateUserAsync(User user)
         {
             await _context.Users.AddAsync(user);
             return await _context.SaveChangesAsync() > 0;
         }
+
+
 
         public async Task<bool> UpdateUserAsync(User user)
         {

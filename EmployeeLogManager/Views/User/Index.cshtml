@@ -9,16 +9,6 @@
         <div class="d-flex justify-content-end">
             <a asp-controller="User" asp-action="Create" class="btn border-0 px-4" style="background:#229f94; color:white;">Create</a>
         </div>
-
-        <!-- Display success message if it exists -->
-        @*    @if (TempData["SuccessMsg"] != null)
-        {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["SuccessMsg"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        } *@
-
         @if (TempData["SuccessMsg"] != null)
         {
             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
@@ -33,10 +23,8 @@
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
                 <tr>
-                    <th>#</th>
                     <th class="fw-normal">Full Name</th>
                     <th class="fw-normal">Email</th>
-                    <th class="fw-normal">Password</th>
                     <th class="fw-normal">Phone No</th>
                     <th class="fw-normal">Address</th>
                     <th class="fw-normal">Department</th>
@@ -49,27 +37,27 @@
                 {
                     @foreach (var user in Model)
                     {
-                        int i = 1;
                         <tr>
-                            <td>@i</td>
                             <td>@user.FullName</td>
                             <td>@user.Email</td>
-                            <td>@user.Password</td>
                             <td>@user.PhoneNumber</td>
                             <td>@user.Address</td>
                             <td>@user.Department</td>
                             <td>@user.Position</td>
                             <td class="d-flex gap-2 justify-content-center align-content-center">
-                                <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id" title="@user.Id"><i class="fas fa-edit" style="font-size: 14px; color:#20ac6a;"></i></a>
-                                <form asp-controller="User" asp-action="Delete" asp-route-id="@user.Id" method="post" style="display:inline;">
-                                    <button type="submit" class="border-0 bg-transparent p-0" title="Deactivate User">
-                                        <i class="fas fa-trash" style="font-size: 14px; color:crimson;"></i>
-                                    </button>
-                                </form>
+                                @if (user.RoleId == 2)
+                                {
+                                    <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id" title="@user.Id">
+                                        <i class="fas fa-edit" style="font-size: 14px; color:#20ac6a;"></i>
+                                    </a>
+                                    <form asp-controller="User" asp-action="Delete" asp-route-id="@user.Id" method="post" style="display:inline;">
+                                        <button type="submit" class="border-0 bg-transparent p-0" title="Deactivate User">
+                                            <i class="fas fa-trash" style="font-size: 14px; color:crimson;"></i>
+                                        </button>
+                                    </form>
+                                }else{}
                             </td>
-
                         </tr>
-                        i++;
                     }}
                 else
                 {

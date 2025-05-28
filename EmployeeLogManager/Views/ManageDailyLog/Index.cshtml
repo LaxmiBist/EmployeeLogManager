@@ -11,7 +11,6 @@
         <table class="table table-bordered table-striped shadow-sm bg-white">
             <thead class="table-light">
                 <tr>
-                    <th>#</th>
                     <th>Date</th>
                     <th>Email</th>
                     <th>User</th>
@@ -25,9 +24,7 @@
                 {
                     foreach (var item in Model)
                     {
-                        int i = 1;
                         <tr>
-                            <td>@i</td>
                             <td>@item.Date.ToShortDateString()</td>
                             <td>@item.Email</td>
                             <td>@item.UserName</td>
@@ -47,7 +44,6 @@
                                 </a>
                             </td>
                         </tr>
-                        i++;
                     }
                 }
                 else

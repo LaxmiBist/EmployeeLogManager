@@ -28,6 +28,9 @@ public class UserController : Controller
         return View(new UserViewModel());
     }
 
+    //The GET method only runs once — when the user first visits the form.
+    //while post must manually re-prepare all data required by the view(like dropdown lists).
+
     [HttpPost("create")]
     public async Task<IActionResult> Create(UserViewModel model)
     {
@@ -40,13 +43,15 @@ public class UserController : Controller
         var (success, message) = await _service.CreateUserAsync(model);
         if (!success)
         {
+            ViewBag.ErrorMsg = message;
             ModelState.AddModelError("", message);
             ViewBag.userRoles = await _service.GetRolesAsync();
             return View(model);
         }
 
-        TempData["SuccessMsg"] = message;
-        return RedirectToAction(nameof(Index));
+        ViewBag.SuccessMsg = message;
+        ViewBag.userRoles = await _service.GetRolesAsync(); 
+        return View("Index");
     }
 
     [HttpGet("edit")]
